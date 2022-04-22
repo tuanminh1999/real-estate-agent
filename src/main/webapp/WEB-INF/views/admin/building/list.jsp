@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@include file="/common/taglib.jsp" %>
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -12,7 +13,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="#">Trang chủ</a>
                 </li>
-                <li class="active">DS bài viết</li>
+                <li class="active">Danh sách toà nhà</li>
             </ul><!-- /.breadcrumb -->
         </div>
 
@@ -26,10 +27,6 @@
                             <div class="widget-toolbar">
                                 <a href="#" data-action="collapse">
                                     <i class="ace-icon fa fa-chevron-up"></i>
-                                </a>
-
-                                <a href="#" data-action="close">
-                                    <i class="ace-icon fa fa-times"></i>
                                 </a>
                             </div>
                         </div>
@@ -59,10 +56,12 @@
                                                 <label for="buildingArea"><b>Quận hiện có</b></label>
                                                 </br>
                                                 <select class="col-sm-6" id="form-field-select-1">
-                                                    <option value="">--Chọn quận--</option>
-                                                    <option value="quan_1">Quận 1</option>
-                                                    <option value="quan_2">Quận 2</option>
-                                                    <option value="quan_3">Quận 3</option>
+                                                    <option value="">-- Chọn quận hiện có --</option>
+                                                    <c:forEach items="${districtsEnums}" var="item">
+                                                        <option value="${item.key}">
+                                                                ${item.value}
+                                                        </option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
                                         </div>
@@ -143,7 +142,7 @@
                                                 <label for="buildingArea"><b>Chọn nhân viên phụ trách</b></label>
                                                 </br>
                                                 <select class="col-sm-8" id="form-field-select-1">
-                                                    <option value="">--Chọn nhân viên phụ trách--</option>
+                                                    <option value="">-- Chọn nhân viên phụ trách --</option>
                                                     <option value="id">nguyen van a</option>
                                                     <option value="id">nguyen van a</option>
                                                     <option value="id">nguyen van a</option>
@@ -153,18 +152,24 @@
                                     </div>
 
                                     <div class="form-group ">
-                                        <div class="col-sm-8">
-                                            <label><input type="checkbox"  value="TANG_TRET" id="buildingTypes" name="buildingTypes"><b> Tầng trệt </b></label>
-                                            <label><input type="checkbox" value="NGUYEN_CAN" id="buildingTypes" name="buildingTypes"><b> Nguyên căn </b></label>
-                                            <label><input type="checkbox" value="NOI_THAT" id="buildingTypes" name="buildingTypes"><b> Nội thất </b></label>
-                                        </div>
+                                        <c:forEach var="item" items="${rentTypesEnums}">
+                                            <div class="col-xs-12 col-sm-2">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox"  value="${item.key}" id="rentTypes" name="rentTypes"> <b> ${item.value} </b>
+                                                </label>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                     <!-- PAGE CONTENT ENDS -->
                                     <div class="form-group">
-                                        <div class="pull-left col-sm-4 ">
-                                            <button class="btn btn-info btn-white btn-bold">
+                                        <div class="col-xs-12 center">
+                                            <button class="btn btn-info btn-white btn-bold" type="submit" id="btnSearchBuilding">
                                                 <i class="fa fa-search" area-hidden="true"></i>
                                                 Tìm kiếm
+                                            </button>
+                                            <button class="btn btn-info btn-white btn-bold" type="reset" id="reset">
+                                                <i class="fa fa-refresh" area-hidden="true"></i>
+                                                Làm mới
                                             </button>
                                         </div>
                                     </div><!-- /.col -->
@@ -179,9 +184,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="pull-right">
-                        <button class="btn btn-info btn-white btn-bold" data-toggle="tooltip" title="Thêm tòa nhà">
+                        <a title="Thêm tòa nhà" class="btn btn-info btn-white btn-bold" data-toggle="tooltip" href="/admin/building-edit">
                             <i class="fa fa-plus-circle" area-hidden="true"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-warning btn-white btn-bold" data-toggle="tooltip" title="Xóa tòa nhà">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
@@ -191,15 +196,9 @@
 
             <div class = "row">
                 <div class="col-xs-12">
-                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <table id="simple-buildingList" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <!--th class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace" />
-                                    <span class="lbl"></span>
-                                </label>
-                            </th-->
                             <th>Tên sản phẩm</th>
                             <th>Địa chỉ</th>
                             <th>Tên quản lý</th>
@@ -221,37 +220,10 @@
                             <td>áda</td>
                             <td>adasd</td>
                             <td>
-                                <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Xem chi tiết">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-info" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
-                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Giao tòa nhà" onclick="assignmentBuilding()">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>sadasd</td>
-                            <td>ádasda</td>
-                            <td>ádadsa</td>
-                            <td>adsadsa</td>
-                            <td>sdasd</td>
-                            <td>áda</td>
-                            <td>adasd</td>
-                            <td>
-                                <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Xem chi tiết">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-info" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
-                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Giao tòa nhà" onclick="assignmentBuilding()">
+                                <a class="btn btn-xs btn-info" href="<c:url value='/admin/building-edit'/>" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Giao tòa nhà" >
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </button>
                             </td>

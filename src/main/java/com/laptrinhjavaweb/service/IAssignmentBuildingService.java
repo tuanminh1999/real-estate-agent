@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.service;
 
-public class IAssignmentBuildingService {
+public interface IAssignmentBuildingService {
 }

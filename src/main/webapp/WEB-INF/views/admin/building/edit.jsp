@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@include file="/common/taglib.jsp"%>
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -37,10 +38,12 @@
                             <label class="col-sm-3 no-padding-right" for="name">Quận hiện có</label>
                             <div class="col-sm-9">
                                 <select id="form-field-select-1">
-                                    <option value="">--Chọn quận--</option>
-                                    <option value="quan_1">Quận 1</option>
-                                    <option value="quan_2">Quận 2</option>
-                                    <option value="quan_3">Quận 3</option>
+                                    <option value="">-- Chọn quận -- </option>
+                                    <c:forEach items="${districtsEnums}" var="item">
+                                        <option value="${item.key}">
+                                                ${item.value}
+                                        </option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>

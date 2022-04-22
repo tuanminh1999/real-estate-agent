@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.service;
 
-public class ICustomerService {
+public interface ICustomerService {
 }

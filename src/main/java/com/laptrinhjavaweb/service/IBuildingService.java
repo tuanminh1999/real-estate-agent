@@ -1,4 +1,8 @@
 package com.laptrinhjavaweb.service;
 
-public class IBuildingService {
+import java.util.Map;
+
+public interface IBuildingService {
+    public Map<String,String> getDistricts();
+    public Map<String,String> getRentTypes();
 }
