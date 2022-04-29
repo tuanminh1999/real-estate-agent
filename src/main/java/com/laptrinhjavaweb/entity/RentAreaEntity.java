@@ -3,7 +3,7 @@ package com.laptrinhjavaweb.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rentarea")
+@Table(name = "rent_area")
 public class RentAreaEntity extends BaseEntity{
 
     @Column(name = "value")

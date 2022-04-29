@@ -179,12 +179,12 @@
                     </div>
                 </div>
             </div><!-- /.row -->
-            </br>
-            </br>
+<%--            </br>--%>
+<%--            </br>--%>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="pull-right">
-                        <a title="Thêm tòa nhà" class="btn btn-info btn-white btn-bold" data-toggle="tooltip" href="/admin/building-edit">
+                        <a title="Thêm tòa nhà" class="btn btn-info btn-white btn-bold" data-toggle="tooltip" href="/admin/building-add">
                             <i class="fa fa-plus-circle" area-hidden="true"></i>
                         </a>
                         <button class="btn btn-warning btn-white btn-bold" data-toggle="tooltip" title="Xóa tòa nhà">
@@ -211,16 +211,17 @@
                         </thead>
 
                         <tbody>
+                        <c:forEach items="${buildings}" var="item">
                         <tr>
-                            <td>sadasd</td>
-                            <td>ádasda</td>
-                            <td>ádadsa</td>
-                            <td>adsadsa</td>
-                            <td>sdasd</td>
-                            <td>áda</td>
-                            <td>adasd</td>
+                            <td>${item.name}</td>
+                            <td>${item.address}</td>
+                            <td>${item.managerName}</td>
+                            <td>${item.managerPhone}</td>
+                            <td>${item.floorArea}</td>
+                            <td>${item.rentPrice}</td>
+                            <td>${item.serviceFee}</td>
                             <td>
-                                <a class="btn btn-xs btn-info" href="<c:url value='/admin/building-edit'/>" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
+                                <a class="btn btn-xs btn-info" href="<c:url value='/admin/building-edit-${item.id}'/>" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Giao tòa nhà" >
@@ -228,6 +229,7 @@
                                 </button>
                             </td>
                         </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
