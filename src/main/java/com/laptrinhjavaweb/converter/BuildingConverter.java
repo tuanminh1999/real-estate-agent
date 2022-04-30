@@ -25,7 +25,7 @@ public class BuildingConverter {
     @Autowired
     private IRentAreaService rentAreaService;
 
-    public BuildingResponseDTO convertToDTO(BuildingEntity entity) {
+    public BuildingResponseDTO convertToResDTO(BuildingEntity entity) {
         BuildingResponseDTO result = modelMapper.map(entity, BuildingResponseDTO.class);
         Map<String, String> districts = buildingService.getDistricts();
         for (Map.Entry<String, String> entry : districts.entrySet()) {
@@ -51,6 +51,11 @@ public class BuildingConverter {
 
     public BuildingEntity convertToEntity(BuildingDTO dto) {
         BuildingEntity result = modelMapper.map(dto, BuildingEntity.class);
+        return result;
+    }
+
+    public BuildingDTO convertToDTO(BuildingEntity entity) {
+        BuildingDTO result = modelMapper.map(entity, BuildingDTO.class);
         return result;
     }
 

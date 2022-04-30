@@ -27,6 +27,7 @@ public class BuildingController {
     public ModelAndView editBuilding(){
         ModelAndView modelAndView = new ModelAndView("admin/building/edit");
         modelAndView.addObject("districtsEnums", buildingService.getDistricts());
+        modelAndView.addObject("rentTypesEnums",buildingService.getRentTypes());
         return modelAndView;
     }
 
@@ -34,6 +35,8 @@ public class BuildingController {
     public ModelAndView editBuilding(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("admin/building/edit");
         modelAndView.addObject("districtsEnums", buildingService.getDistricts());
+        modelAndView.addObject("rentTypesEnums",buildingService.getRentTypes());
+        modelAndView.addObject("building", buildingService.findById(id));
         return modelAndView;
     }
 

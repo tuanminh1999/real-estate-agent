@@ -10,4 +10,7 @@ public interface IBuildingService {
     public Map<String,String> getDistricts();
     public Map<String,String> getRentTypes();
     public List<BuildingResponseDTO> findAll();
+    public BuildingDTO findById(Long id);
+
+    BuildingDTO saveBuilding(BuildingDTO buildingDTO);
 }

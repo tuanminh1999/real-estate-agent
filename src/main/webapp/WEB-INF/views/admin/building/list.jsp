@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+
 <div class="main-content">
     <div class="main-content-inner">
+
         <div class="breadcrumbs" id="breadcrumbs">
             <script type="text/javascript">
                 try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -202,9 +204,10 @@
                             <th>Tên sản phẩm</th>
                             <th>Địa chỉ</th>
                             <th>Tên quản lý</th>
-                            <th>Số điện thoại</th>
+                            <th>Số điện thoại quản lý</th>
                             <th>Diện tích sàn</th>
                             <th>Giá thuê</th>
+                            <th>Diện tích thuê</th>
                             <th>Phí dịch vụ</th>
                             <th>Thao tác</th>
                         </tr>
@@ -219,6 +222,7 @@
                             <td>${item.managerPhone}</td>
                             <td>${item.floorArea}</td>
                             <td>${item.rentPrice}</td>
+                            <td>${item.rentArea}</td>
                             <td>${item.serviceFee}</td>
                             <td>
                                 <a class="btn btn-xs btn-info" href="<c:url value='/admin/building-edit-${item.id}'/>" data-toggle="tooltip" title="Sửa thông tin tòa nhà">
