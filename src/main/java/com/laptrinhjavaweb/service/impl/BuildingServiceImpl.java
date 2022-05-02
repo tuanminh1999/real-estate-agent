@@ -109,4 +109,16 @@ public class BuildingServiceImpl implements IBuildingService {
         BuildingEntity entity = buildingRepository.save(buildingEntity);
         return buildingConverter.convertToDTO(entity);
     }
+
+    @Transactional
+    @Override
+    public void deleteBuildings(Long[] idList) {
+        for (Long id : idList) {
+            if (id == null) {
+                throw new MyNullPointerException("Id is null:" + id);
+            }
+            buildingRepository.delete(id);
+        }
+    }
+
 }

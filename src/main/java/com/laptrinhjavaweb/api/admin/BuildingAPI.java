@@ -22,4 +22,11 @@ public class BuildingAPI {
         return buildingService.saveBuilding(buildingDTO);
     }
 
+    @DeleteMapping
+    public void deleteBuilding(@RequestBody Long[] idList) {
+        if (idList.length > 0) {
+            buildingService.deleteBuildings(idList);
+        }
+    }
+
 }

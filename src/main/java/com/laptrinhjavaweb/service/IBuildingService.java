@@ -13,4 +13,6 @@ public interface IBuildingService {
     public BuildingDTO findById(Long id);
 
     BuildingDTO saveBuilding(BuildingDTO buildingDTO);
+
+    void deleteBuildings(Long[] idList);
 }

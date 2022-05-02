@@ -9,7 +9,7 @@ public class RentAreaEntity extends BaseEntity {
     @Column(name = "value")
     private int value;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private BuildingEntity buildingEntity;
 

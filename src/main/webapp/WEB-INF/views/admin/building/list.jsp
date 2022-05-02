@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="buildingApiUrl" value="/api/buildings"/>
+<c:url var="buildingsUrl" value="/admin/building-list"/>
 
 <div class="main-content">
     <div class="main-content-inner">
@@ -189,7 +191,8 @@
                         <a title="Thêm tòa nhà" class="btn btn-info btn-white btn-bold" data-toggle="tooltip" href="/admin/building-add">
                             <i class="fa fa-plus-circle" area-hidden="true"></i>
                         </a>
-                        <button class="btn btn-warning btn-white btn-bold" data-toggle="tooltip" title="Xóa tòa nhà">
+                        <button class="btn btn-warning btn-white btn-bold" data-toggle="tooltip" title="Xóa tòa nhà"
+                                id="btnDeleteBuilding">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -198,9 +201,10 @@
 
             <div class = "row">
                 <div class="col-xs-12">
-                    <table id="simple-buildingList" class="table table-striped table-bordered table-hover">
+                    <table id="buildingList" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>Tên sản phẩm</th>
                             <th>Địa chỉ</th>
                             <th>Tên quản lý</th>
@@ -216,6 +220,8 @@
                         <tbody>
                         <c:forEach items="${buildings}" var="item">
                         <tr>
+                            <td><input type="checkbox" id="checkbox_${item.id}"
+                                       value="${item.id}"></td>
                             <td>${item.name}</td>
                             <td>${item.address}</td>
                             <td>${item.managerName}</td>
@@ -241,3 +247,48 @@
         </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
+<script>
+
+    //delete building
+    document.getElementById('btnDeleteBuilding').onclick = function() {
+        swal({
+            title : "Bạn có chắc chắn?",
+            text : "Bạn sẽ xóa sản phẩm này khỏi dữ liệu!",
+            type : "warning",
+            showCancelButton : true,
+            confirmButtonColor : '#DD6B55',
+            confirmButtonText : 'Vâng, Hãy Xóa!',
+            cancelButtonText : "Không, Đừng Xóa!",
+            closeOnConfirm : false,
+            closeOnCancel : false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                // var data = {};
+                var ids = $('#buildingList').find(
+                    'tbody input[type=checkbox]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                // data['ids'] = ids;
+                deleteBuildings(ids);
+            } else {
+                swal("Chưa Thực Hiện Xóa", "Dữ liệu vẫn an toàn", "error");
+            }
+        });
+    };
+
+    function deleteBuildings(data) {
+        $.ajax({
+            type: "DELETE",
+            url: "${buildingApiUrl}",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (response) {
+                window.location.href = "${buildingsUrl}";
+            },
+            error: function (response) {
+                window.location.href = "${buildingsUrl}";
+
+            }
+        });
+    }
+</script>
