@@ -6,7 +6,11 @@
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
             <script type="text/javascript">
-                try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                try{
+                    ace.settings.check('breadcrumbs' , 'fixed')
+                } catch(e) {
+
+                }
             </script>
 
             <ul class="breadcrumb">
@@ -14,7 +18,12 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="#">Trang chủ</a>
                 </li>
-                <li class="active">Chỉnh sửa toà nhà</li>
+                <c:if test="${building.id != null}">
+                    <li class="active">Chỉnh sửa toà nhà</li>
+                </c:if>
+                <c:if test="${building.id == null}">
+                    <li class="active">Thêm mới toà nhà</li>
+                </c:if>
             </ul><!-- /.breadcrumb -->
         </div>
 
@@ -34,7 +43,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Quận hiện có</label>
                             <div class="col-sm-9">
-                                <select id="form-field-select-1">
+                                <select id="district" name="district">
                                     <option value="">-- Chọn quận -- </option>
                                     <c:forEach var="item" items="${districtsEnums}">
                                         <option value="${item.key}" ${item.key == building.district ? 'selected' : '' }> ${item.value}</option>
@@ -84,10 +93,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 no-padding-right">Diện tích thuê</label>
+                            <label class="col-sm-3 no-padding-right">Diện tích</label>
                             <div class="col-sm-9">
-                                <input type="number" id="areaRent" class="form-control" name="areaRent"
-                                       value="${building.areaRent}"/>
+                                <input type="text" id="rentArea" class="form-control" name="rentArea"
+                                       placeholder="VD: 100,200,300" value="${building.rentArea}"/>
                             </div>
                         </div>
 
@@ -108,7 +117,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 no-padding-right">Kết cấu toà nhà</label>
+                            <label class="col-sm-3 no-padding-right">Cấu trúc toà nhà</label>
                             <div class="col-sm-9">
                                 <input type="text" id="structure" class="form-control" name="structure"
                                         value="${building.structure}"/>
@@ -124,7 +133,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 no-padding-right">Hạng</label>
+                            <label class="col-sm-3 no-padding-right">Level</label>
                             <div class="col-sm-9">
                                 <input type="text" id="level" class="form-control" name="level"
                                         value="${building.level}"/>
@@ -142,7 +151,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Phí dịch vụ</label>
                             <div class="col-sm-9">
-                                <input type="number" id="serviceFee" class="form-control" name="serviceFee"
+                                <input type="text" id="serviceFee" class="form-control" name="serviceFee"
                                         value="${building.serviceFee}"/>
                             </div>
                         </div>
@@ -150,7 +159,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Phí xe hơi</label>
                             <div class="col-sm-9">
-                                <input type="number" id="carFee" class="form-control" name="carFee"
+                                <input type="text" id="carFee" class="form-control" name="carFee"
                                         value="${building.carFee}"/>
                             </div>
                         </div>
@@ -158,7 +167,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Phí xe máy</label>
                             <div class="col-sm-9">
-                                <input type="number" id="motoFee" class="form-control" name="motoFee"
+                                <input type="text" id="motoFee" class="form-control" name="motoFee"
                                         value="${building.motoFee}"/>
                             </div>
                         </div>
@@ -166,7 +175,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Phí ngoài giờ</label>
                             <div class="col-sm-9">
-                                <input type="number" id="overTimeFee" class="form-control" name="overTimeFee"
+                                <input type="text" id="overTimeFee" class="form-control" name="overTimeFee"
                                         value="${building.overTimeFee}"/>
                             </div>
                         </div>
@@ -174,7 +183,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Tiền nước</label>
                             <div class="col-sm-9">
-                                <input type="number" id="waterFee" class="form-control" name="waterFee"
+                                <input type="text" id="waterFee" class="form-control" name="waterFee"
                                        value="${building.waterFee}"/>
                             </div>
                         </div>
@@ -182,7 +191,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Tiền điện</label>
                             <div class="col-sm-9">
-                                <input type="number" id="electricityFee" class="form-control" name="electricityFee"
+                                <input type="text" id="electricityFee" class="form-control" name="electricityFee"
                                         value="${building.electricityFee}"/>
                             </div>
                         </div>
@@ -222,7 +231,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Phí môi giới</label>
                             <div class="col-sm-9">
-                                <input type="number" id="brokerAgeFee" class="form-control" name="brokerAgeFee"
+                                <input type="text" id="brokerAgeFee" class="form-control" name="brokerAgeFee"
                                         value="${building.brokerAgeFee}"/>
                             </div>
                         </div>
@@ -230,7 +239,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Ghi chú</label>
                             <div class="col-sm-9">
-                                <input type="number" id="note" class="form-control" name="note"
+                                <input type="text" id="note" class="form-control" name="note"
                                        value="${building.note}"/>
                             </div>
                         </div>
@@ -238,7 +247,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Link</label>
                             <div class="col-sm-9">
-                                <input type="number" id="linkOfBuilding" class="form-control" name="linkOfBuilding"
+                                <input type="text" id="linkOfBuilding" class="form-control" name="linkOfBuilding"
                                        value="${building.linkOfBuilding}"/>
                             </div>
                         </div>
@@ -246,16 +255,8 @@
                         <div class="form-group">
                             <label class="col-sm-3 no-padding-right">Map</label>
                             <div class="col-sm-9">
-                                <input type="number" id="map" class="form-control" name="map"
+                                <input type="text" id="map" class="form-control" name="map"
                                        value="${building.map}"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 no-padding-right">Image</label>
-                            <div class="col-sm-9">
-                                <input type="file" id="image" name="image"
-                                       class="form-control" value=""/>
                             </div>
                         </div>
 
@@ -327,10 +328,10 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (res) {
-                swal("Thành công", "Sản phẩm đã được lưa", "success");
+                swal("Thành công", "Dữ liệu đã được lưa", "success");
             },
             error: function (res) {
-                swal("Chưa Thực Hiện Xóa", "Dữ liệu chưa được lưu", "error");
+                swal("Thất bại", "Dữ liệu chưa được lưu", "error");
             }
         });
     }
@@ -343,10 +344,10 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (res) {
-                swal("Thành công", "Sản phẩm đã được cập nhật", "success");
+                swal("Thành công", "Dữ liệu đã được cập nhật", "success");
             },
             error: function (res) {
-                swal("Chưa Thực Hiện Xóa", "Dữ liệu chưa được cập nhật", "error");
+                swal("Thất bại", "Dữ liệu chưa được cập nhật", "error");
             }
         });
     }

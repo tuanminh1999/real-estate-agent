@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "rent_area")
-public class RentAreaEntity extends BaseEntity{
+public class RentAreaEntity extends BaseEntity {
 
     @Column(name = "value")
     private int value;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "building_id")
     private BuildingEntity buildingEntity;
 

@@ -28,7 +28,7 @@ public class BuildingDTO {
     private String ward;
     private String waterFee;
     private String[] rentTypes;
-    private String areaRent;
+    private String rentArea;
     private String managerPhone;
     private String managerName;
     private String type;
@@ -250,12 +250,12 @@ public class BuildingDTO {
         this.rentTypes = rentTypes;
     }
 
-    public String getAreaRent() {
-        return areaRent;
+    public String getRentArea() {
+        return rentArea;
     }
 
-    public void setAreaRent(String areaRent) {
-        this.areaRent = areaRent;
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
     }
 
     public String getManagerPhone() {

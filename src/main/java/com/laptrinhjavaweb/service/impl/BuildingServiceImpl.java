@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import com.laptrinhjavaweb.converter.BuildingConverter;
 import com.laptrinhjavaweb.dto.BuildingDTO;
+import com.laptrinhjavaweb.dto.RentAreaDTO;
 import com.laptrinhjavaweb.dto.responseDTO.BuildingResponseDTO;
 import com.laptrinhjavaweb.entity.BuildingEntity;
 import com.laptrinhjavaweb.entity.RentAreaEntity;
@@ -13,6 +14,7 @@ import com.laptrinhjavaweb.repository.RentAreaRepository;
 import com.laptrinhjavaweb.service.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +52,7 @@ public class BuildingServiceImpl implements IBuildingService {
         return rentTypes;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<BuildingResponseDTO> findAll() {
         List<BuildingEntity> buildingEntities = buildingRepository.findAll();
@@ -59,12 +62,26 @@ public class BuildingServiceImpl implements IBuildingService {
     @Override
     public BuildingDTO findById(Long id) {
         BuildingDTO buildingDTO = buildingConverter.convertToDTO(buildingRepository.findOne(id));
+
         if (buildingDTO == null) {
             throw new MyNullPointerException("NullPointerException about BuildingDTO");
         }
+            List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findByBuildingId(id);
+            String rentAreaSt = "";
+            for (RentAreaEntity item: rentAreaEntities) {
+                if (item != null){
+                    if (rentAreaSt.length() >0) {
+                        rentAreaSt += ",";
+                    }
+                    rentAreaSt += item.getValue();
+                }
+            }
+            buildingDTO.setRentArea(rentAreaSt);
+
         return buildingDTO;
     }
 
+    @Transactional
     @Override
     public BuildingDTO saveBuilding(BuildingDTO buildingDTO) {
         //        checkException(buildingDTO);
@@ -73,9 +90,9 @@ public class BuildingServiceImpl implements IBuildingService {
             String rentTypes = String.join(",", buildingDTO.getRentTypes());
             buildingEntity.setType(rentTypes);
         }
-        if (buildingDTO.getAreaRent() != null) {
+        if (buildingDTO.getRentArea() != null) {
             List<RentAreaEntity> rentAreaEntityList = new ArrayList<>();
-            String[] arr = buildingDTO.getAreaRent().split(",");
+            String[] arr = buildingDTO.getRentArea().split(",");
             for (String item : arr) {
                 if (item != null && !item.equals("")) {
                     RentAreaEntity rentAreaEntity = new RentAreaEntity();
@@ -89,7 +106,7 @@ public class BuildingServiceImpl implements IBuildingService {
             }
             buildingEntity.setAreaEntities(rentAreaEntityList);
         }
-
-        return buildingConverter.convertToDTO(buildingRepository.save(buildingEntity));
+        BuildingEntity entity = buildingRepository.save(buildingEntity);
+        return buildingConverter.convertToDTO(entity);
     }
 }

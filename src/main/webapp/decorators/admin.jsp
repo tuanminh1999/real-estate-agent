@@ -6,15 +6,18 @@
 	<title><dec:title default="Trang chủ" /></title>
 
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-    <script type='text/javascript' src="assets/js/ace-extra.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script type='text/javascript' src="js/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="paging/jquery.twbsPagination.js"></script>
+	<link rel="stylesheet" href="font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+	<script type='text/javascript' src="assets/js/ace-extra.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<!-- jquery -->
+	<script type='text/javascript' src="js/2.1.4/jquery.min.js"></script>
+
+	<%--sweetalert--%>
+	<link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+	<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
 
 </head>
 <body class="no-skin">
@@ -42,6 +45,12 @@
 	</div>
 
 
+	<%--jQuery Validation Plugin--%>
+	<script src="js/jqueryvalidate/jquery.validate.min.js"></script>
+
+	<%--pagination--%>
+	<script type="text/javascript" src="paging/jquery.twbsPagination.js"></script>
+
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/jquery-ui.custom.min.js"></script>
 	<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
@@ -52,7 +61,6 @@
 	<script src="assets/js/jquery.flot.resize.min.js"></script>
 	<script src="assets/js/ace-elements.min.js"></script>
 	<script src="assets/js/ace.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 
 	<!-- page specific plugin scripts -->
 	<script src="assets/js/jquery-ui.min.js"></script>

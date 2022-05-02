@@ -54,7 +54,7 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "number_of_basement")
     private Integer numberOfBasement;
 
-    @Column(name = "floorarea")
+    @Column(name = "floor_area")
     private Integer floorArea;
 
     @Column(name = "overtime_fee")
@@ -101,10 +101,10 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RentAreaEntity> areaEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY)
     private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
 
     public String getAvatar() {
