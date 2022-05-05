@@ -48,6 +48,9 @@
 	<%--jQuery Validation Plugin--%>
 	<script src="js/jqueryvalidate/jquery.validate.min.js"></script>
 
+	<%--common javascript file--%>
+	<script type="text/javascript" src="js/global_admin_script.js"></script>
+
 	<%--pagination--%>
 	<script type="text/javascript" src="paging/jquery.twbsPagination.js"></script>
 

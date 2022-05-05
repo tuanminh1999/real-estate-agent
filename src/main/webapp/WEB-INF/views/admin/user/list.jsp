@@ -91,7 +91,7 @@
                                                         <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                     </span>
                                             </a>
-                                            <button id="btnDelete" type="button" disabled
+                                            <button id="btnDeleteUser" type="button"
                                                     class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
                                                     data-toggle="tooltip" title="Xóa bài viết" onclick="">
                                                         <span>
@@ -106,13 +106,16 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="table-responsive">
-                                    <table class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer">
+                                    <table id="userList" class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
                                         <tr>
                                             <th><input type='checkbox' id='checkAll' class='check-box-element'></th>
                                             <th>Tên</th>
                                             <th>Họ tên</th>
                                             <th>Thao tác</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
                                         <c:forEach items="${users}" var="item">
                                         <tr>
                                             <td><input type="checkbox" name="checkList" value="${item.id}"
@@ -133,6 +136,7 @@
                                             </td>
                                         </tr>
                                         </c:forEach>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -145,7 +149,7 @@
 </div>
 <script>
     //delete building
-    document.getElementById('btnDeleteBuilding').onclick = function() {
+    document.getElementById('btnDeleteUser').onclick = function() {
         swal({
             title : "Bạn có chắc chắn?",
             text : "Bạn sẽ xóa sản phẩm này khỏi dữ liệu!",

@@ -204,7 +204,7 @@
                     <table id="buildingList" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th><input type='checkbox' id='checkAll' class='check-box-element'></th>
                             <th>Tên sản phẩm</th>
                             <th>Địa chỉ</th>
                             <th>Tên quản lý</th>
