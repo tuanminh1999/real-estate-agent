@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.repository.custom;
 
-public class IBuildingCustom {
+public interface IBuildingCustom {
 }

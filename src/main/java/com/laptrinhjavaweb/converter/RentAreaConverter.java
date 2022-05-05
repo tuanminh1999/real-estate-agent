@@ -11,7 +11,7 @@ public class RentAreaConverter {
     @Autowired
     private ModelMapper modelMapper;
 
-    public RentAreaDTO convertToDto (RentAreaEntity entity){
+    public RentAreaDTO convertToDTO (RentAreaEntity entity){
         RentAreaDTO result = modelMapper.map(entity, RentAreaDTO.class);
         return result;
     }

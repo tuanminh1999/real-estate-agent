@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.repository;
 
-public class AssignmentBuildingRepository {
+public interface AssignmentBuildingRepository {
 }

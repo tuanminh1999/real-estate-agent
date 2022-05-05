@@ -1,7 +1,8 @@
-use springbootweb;
+use real_estate_agent;
 
-insert into role(code,name) values('ADMIN','Quản trị hệ thống');
-insert into role(code,name) values('USER','người dùng');
+insert into role(code,name) values('ADMIN','Quản trị');
+insert into role(code,name) values('USER','Người dùng');
+insert into role(code,name) values('STAFF','Nhân viên');
 
 insert into users(username,password,fullname,status)
 values('admin','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','admin',1);

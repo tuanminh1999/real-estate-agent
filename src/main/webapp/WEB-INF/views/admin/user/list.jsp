@@ -1,22 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="formUrl" value=""/>
-<c:url var="formAjax" value=""/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>
-        <%--<spring:message code="label.user.list"/>--%>
-        Danh sách người dùng
-    </title>
-</head>
-
+<c:url var="userApiUrl" value="/api/users"/>
+<c:url var="usersUrl" value="/admin/user-list"/>
 <body>
 <div class="main-content">
-    <form:form action="${formUrl}" id="listForm" method="GET">
+    <form action="${formUrl}" id="listForm" method="GET">
         <div class="main-content-inner">
             <div class="breadcrumbs" id="breadcrumbs">
                 <script type="text/javascript">
@@ -30,12 +19,10 @@
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
                         <a href="<c:url value=""/>">
-                                <%--<spring:message code="label.home"/>--%>
                             Trang chủ
                         </a>
                     </li>
                     <li class="active">
-                            <%--<spring:message code="label.user.list"/>--%>
                         Danh sách người dùng
                     </li>
                 </ul>
@@ -58,7 +45,6 @@
                                 <div class="widget-box table-filter">
                                     <div class="widget-header">
                                         <h4 class="widget-title">
-                                                <%--<spring:message code="label.search"/>--%>
                                             Tìm kiếm
                                         </h4>
                                         <div class="widget-toolbar">
@@ -72,12 +58,11 @@
                                             <div class="form-horizontal">
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label">
-                                                            <%--<spring:message code="label.search.value"/>--%>
                                                         Giá trị cần tìm
                                                     </label>
                                                     <div class="col-sm-8">
                                                         <div class="fg-line">
-<%--                                                            <form:input path="searchValue" cssClass="form-control input-sm"/>--%>
+                                                            <input class="form-control" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,7 +71,6 @@
                                                     <div class="col-sm-8">
                                                         <button id="btnSearch" type="button"
                                                                 class="btn btn-sm btn-success">
-                                                                <%--spring:message code="label.search"/>--%>
                                                             Tìm kiếm
                                                             <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                                                         </button>
@@ -101,21 +85,18 @@
                                         <div class="dt-buttons btn-overlap btn-group">
                                             <a flag="info"
                                                class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-                                               data-toggle="tooltip"
-                                                <%--title='<spring:message code="label.user.add"/>'--%>
-                                               title="Thêm người dùng"
-                                               href='<c:url value=""/>'>
-															<span>
-																<i class="fa fa-plus-circle bigger-110 purple"></i>
-															</span>
+                                               data-toggle="tooltip" title="Thêm người dùng"
+                                               href='<c:url value="/admin/user-add"/>'>
+                                                    <span>
+                                                        <i class="fa fa-plus-circle bigger-110 purple"></i>
+                                                    </span>
                                             </a>
                                             <button id="btnDelete" type="button" disabled
                                                     class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
-                                                    data-toggle="tooltip"
-                                                    title="Xóa bài viết" onclick="warningBeforeDelete()">
-															<span>
-																<i class="fa fa-trash-o bigger-110 pink"></i>
-															</span>
+                                                    data-toggle="tooltip" title="Xóa bài viết" onclick="">
+                                                        <span>
+                                                            <i class="fa fa-trash-o bigger-110 pink"></i>
+                                                        </span>
                                             </button>
                                         </div>
                                     </div>
@@ -125,37 +106,34 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="table-responsive">
-<%--                                    <display:table name="model.listResult" cellspacing="0" cellpadding="0"--%>
-<%--                                                   requestURI="${formUrl}" partialList="true" sort="external"--%>
-<%--                                                   size="${model.totalItems}" defaultsort="2" defaultorder="ascending"--%>
-<%--                                                   id="tableList" pagesize="${model.maxPageItems}"--%>
-<%--                                                   export="false"--%>
-<%--                                                   class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"--%>
-<%--                                                   style="margin: 3em 0 1.5em;">--%>
-<%--                                        <display:column title="<fieldset class='form-group'>--%>
-<%--												        <input type='checkbox' id='checkAll' class='check-box-element'>--%>
-<%--												        </fieldset>" class="center select-cell"--%>
-<%--                                                        headerClass="center select-cell">--%>
-<%--                                            <fieldset>--%>
-<%--                                                <input type="checkbox" name="checkList" value="${tableList.id}"--%>
-<%--                                                       id="checkbox_${tableList.id}" class="check-box-element"/>--%>
-<%--                                            </fieldset>--%>
-<%--                                        </display:column>--%>
-<%--                                        <display:column headerClass="text-left" property="userName" title="Tên"/>--%>
-<%--                                        <display:column headerClass="text-left" property="fullName" title="full name"/>--%>
-<%--                                        <display:column headerClass="col-actions" title="Thao tác">--%>
-<%--                                            <c:if test="${tableList.roleCode != 'ADMIN'}">--%>
-<%--                                                <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"--%>
-<%--                                                   title="Cập nhật người dùng"--%>
-<%--                                                   href='<c:url value="/admin/user-edit-${tableList.id}"/>'>--%>
-<%--                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>--%>
-<%--                                                </a>--%>
-<%--                                            </c:if>--%>
-<%--                                            <c:if test="${tableList.roleCode == 'ADMIN'}">--%>
-<%--                                                <p>Không đươc thao tác</p>--%>
-<%--                                            </c:if>--%>
-<%--                                        </display:column>--%>
-<%--                                    </display:table>--%>
+                                    <table class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer">
+                                        <tr>
+                                            <th><input type='checkbox' id='checkAll' class='check-box-element'></th>
+                                            <th>Tên</th>
+                                            <th>Họ tên</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                        <c:forEach items="${users}" var="item">
+                                        <tr>
+                                            <td><input type="checkbox" name="checkList" value="${item.id}"
+                                                       id="checkbox_${item.id}" class="check-box-element"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <c:if test="${item.roleCode != 'ADMIN'}">
+                                                    <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+                                                       title="Cập nhật người dùng"
+                                                       href='<c:url value="/admin/user-edit-${item.id}"/>'>
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                </c:if>
+                                                <c:if test="${item.roleCode == 'ADMIN'}">
+                                                    <p>Không đươc thao tác</p>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                        </c:forEach>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -163,5 +141,49 @@
                 </div>
             </div>
         </div>
-    </form:form>
+    </form>
 </div>
+<script>
+    //delete building
+    document.getElementById('btnDeleteBuilding').onclick = function() {
+        swal({
+            title : "Bạn có chắc chắn?",
+            text : "Bạn sẽ xóa sản phẩm này khỏi dữ liệu!",
+            type : "warning",
+            showCancelButton : true,
+            confirmButtonColor : '#DD6B55',
+            confirmButtonText : 'Vâng, Hãy Xóa!',
+            cancelButtonText : "Không, Đừng Xóa!",
+            closeOnConfirm : false,
+            closeOnCancel : false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                // var data = {};
+                var ids = $('#userList').find(
+                    'tbody input[type=checkbox]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                // data['ids'] = ids;
+                deleteBuildings(ids);
+            } else {
+                swal("Chưa Thực Hiện Xóa", "Dữ liệu vẫn an toàn", "error");
+            }
+        });
+    };
+
+    function deleteBuildings(data) {
+        $.ajax({
+            type: "DELETE",
+            url: "${userApiUrl}",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (response) {
+                window.location.href = "${usersUrl}";
+            },
+            error: function (response) {
+                window.location.href = "${usersUrl}";
+
+            }
+        });
+    }
+</script>

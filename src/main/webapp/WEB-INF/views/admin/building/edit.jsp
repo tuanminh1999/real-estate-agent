@@ -221,7 +221,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 no-padding-right">Thời gian trang tí</label>
+                            <label class="col-sm-3 no-padding-right">Thời gian trang trí</label>
                             <div class="col-sm-9">
                                 <input type="text" id="decorationTime" class="form-control" name="decorationTime"
                                         value="${building.decorationTime}"/>
@@ -264,9 +264,11 @@
                             <label class="col-sm-3 no-padding-right">Loại tòa nhà</label>
                             <div class="col-sm-9">
                                 <c:forEach var="rents" items="${rentTypesEnums}">
-                                    <label class="checkbox-inline" for="rentTypes">${rents.value}</label>
-                                    <input type="checkbox" name="rentTypes" id="rentTypes"
-                                           value="${rents.key}" ${fn:contains(building.type,rents.key) ? 'checked' : '' }>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rentTypes" id="rentTypes"
+                                               value="${rents.key}" ${fn:contains(building.type,rents.key) ? 'checked' : '' }>
+                                        ${rents.value}
+                                    </label>
                                 </c:forEach>
                             </div>
                         </div>
@@ -328,7 +330,7 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (res) {
-                swal("Thành công", "Dữ liệu đã được lưa", "success");
+                swal("Thành công", "Dữ liệu đã được lưu", "success");
             },
             error: function (res) {
                 swal("Thất bại", "Dữ liệu chưa được lưu", "error");

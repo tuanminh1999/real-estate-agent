@@ -248,7 +248,6 @@
     </div>
 </div><!-- /.main-content -->
 <script>
-
     //delete building
     document.getElementById('btnDeleteBuilding').onclick = function() {
         swal({

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="formUrl" value=""/>
+<c:url var="userApiUrl" value="/api/users"/>
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -30,39 +30,40 @@
                                 ${messageResponse}
                         </div>
                     </c:if>
-                    <form:form id="formEdit" class="form-horizontal">
+                    <form id="formEdit" class="form-horizontal">
                     <div id="profile">
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Vai trò</label>
                             <div class="col-sm-9">
-<%--                                <form:select path="roleCode" id="roleCode">--%>
-<%--                                    <form:option value="" label="--- Chọn vai trò ---"/>--%>
-<%--                                    <form:options items="${model.roleDTOs}"/>--%>
-<%--                                </form:select>--%>
+                                <select id="role" name="roleCode">
+                                    <option value="">--- Chọn vai trò ---</option>
+                                    <c:forEach items="${roles}" var="item">
+                                        <option value="${item.key}"> ${item.value}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="space-4"></div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">
-                                    <%--<spring:message code="label.username"/>--%> Tên đăng nhập
+                                Tên đăng nhập
                             </label>
                             <div class="col-sm-9">
-<%--                                <c:if test="${not empty model.id}">--%>
-<%--                                    <form:input path="userName" id="userName" cssClass="form-control" disabled="true"/>--%>
-<%--                                </c:if>--%>
-<%--                                <c:if test="${empty model.id}">--%>
-<%--                                    <form:input path="userName" id="userName" cssClass="form-control"/>--%>
-<%--                                </c:if>--%>
+                                <c:if test="${not empty model.id}">
+                                    <input type="text" class="form-control" value="${model.userName}" disabled/>
+                                </c:if>
+                                <c:if test="${empty model.id}">
+                                    <input type="text" class="form-control" name="userName"/>
+                                </c:if>
                             </div>
                         </div>
                         <div class="space-4"></div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">
-                                    <%--<spring:message code="label.fullname"/>--%>
                                 Tên đầy đủ
                             </label>
                             <div class="col-sm-9">
-<%--                                <form:input path="fullName" id="fullName" cssClass="form-control"/>--%>
+                                 <input type="text" class="form-control" value="${fullName}" name="fullName"/>
                             </div>
                         </div>
                         <div class="space-4"></div>
@@ -83,11 +84,62 @@
                             </c:if>
                         </div>
                         <!--Btn-->
-<%--                        <form:hidden path="id" id="userId"/>--%>
-                        </form:form>
+                        <input type="hidden" name="id" value="${id}"/>
+
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var data = {};
+
+    $("#btnAddOrUpdateUsers").click(function (event) {
+        event.preventDefault();
+        var formData = $("#formEdit").serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+
+        if (data['id'] != '' || data['id'] > 0) {
+            updateUser(data);
+        } else {
+            addUser(data);
+        }
+    });
+
+    function addUser(data) {
+        $.ajax({
+            url: '${userApiUrl}',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                swal("Thành công", "Dữ liệu đã được lưu", "success");
+            },
+            error: function (res) {
+                swal("Thất bại", "Dữ liệu chưa được lưu", "error");
+            }
+        });
+    }
+
+    function updateUser(data) {
+        $.ajax({
+            url: '${userApiUrl}',
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                swal("Thành công", "Dữ liệu đã được cập nhật", "success");
+            },
+            error: function (res) {
+                swal("Thất bại", "Dữ liệu chưa được cập nhật", "error");
+            }
+        });
+    }
+
+</script>

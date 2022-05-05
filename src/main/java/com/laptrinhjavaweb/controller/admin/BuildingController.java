@@ -24,7 +24,7 @@ public class BuildingController {
     }
 
     @RequestMapping(value = "/admin/building-add")
-    public ModelAndView editBuilding(){
+    public ModelAndView addBuilding(){
         ModelAndView modelAndView = new ModelAndView("admin/building/edit");
         modelAndView.addObject("districtsEnums", buildingService.getDistricts());
         modelAndView.addObject("rentTypesEnums",buildingService.getRentTypes());

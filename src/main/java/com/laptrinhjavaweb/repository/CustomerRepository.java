@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.repository;
 
-public class CustomerRepository {
+public interface CustomerRepository {
 }

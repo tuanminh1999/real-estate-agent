@@ -23,6 +23,6 @@ public class RentAreaServiceImpl implements IRentAreaService {
     @Override
     public List<RentAreaDTO> findByBuildingId(Long buildingId) {
         List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findByBuildingId(buildingId);
-        return rentAreaEntities.stream().map(item -> rentAreaConverter.convertToDto(item)).collect(Collectors.toList());
+        return rentAreaEntities.stream().map(item -> rentAreaConverter.convertToDTO(item)).collect(Collectors.toList());
     }
 }
