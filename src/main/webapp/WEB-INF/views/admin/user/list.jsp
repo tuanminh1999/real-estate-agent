@@ -117,8 +117,8 @@
                                         <tr>
                                             <td><input type="checkbox" name="checkList" value="${item.id}"
                                                        id="checkbox_${item.id}" class="check-box-element"/></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>${item.userName}</td>
+                                            <td>${item.fullName}</td>
                                             <td>
                                                 <c:if test="${item.roleCode != 'ADMIN'}">
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"

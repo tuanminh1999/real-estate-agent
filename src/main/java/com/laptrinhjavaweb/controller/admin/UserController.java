@@ -20,6 +20,7 @@ public class UserController {
     @RequestMapping(value="/admin/user-list")
     public ModelAndView showUserList(){
         ModelAndView modelAndView = new ModelAndView("admin/user/list");
+        modelAndView.addObject("users", userService.findAll());
         return modelAndView;
     }
 
