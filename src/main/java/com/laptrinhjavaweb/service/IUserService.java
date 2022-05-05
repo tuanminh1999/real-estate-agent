@@ -13,4 +13,6 @@ public interface IUserService {
     UserDTO updateUser(UserDTO userDTO);
 
     void deleteUsers(Long[] idList);
+
+    UserDTO findById(Long id);
 }

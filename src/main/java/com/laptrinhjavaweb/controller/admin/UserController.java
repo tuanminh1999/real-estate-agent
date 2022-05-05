@@ -34,6 +34,7 @@ public class UserController {
     public ModelAndView editUser(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("admin/user/edit");
         modelAndView.addObject("roles", roleService.getRoles());
+        modelAndView.addObject("user", userService.findById(id));
         return modelAndView;
     }
 }

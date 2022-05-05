@@ -4,6 +4,7 @@ import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.BuildingDTO;
 import com.laptrinhjavaweb.dto.UserDTO;
+import com.laptrinhjavaweb.entity.RentAreaEntity;
 import com.laptrinhjavaweb.entity.RoleEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.exception.MyNullPointerException;
@@ -70,6 +71,19 @@ public class UserServiceImpl implements IUserService {
             }
             userRepository.delete(id);
         }
+    }
+
+    @Override
+    public UserDTO findById(Long id) {
+        UserEntity entity = userRepository.findOne(id);
+
+        List<RoleEntity> roles = entity.getRoleEntities();
+        UserDTO userDTO = userConverter.convertToDTO(entity);
+        roles.forEach(item -> {
+            userDTO.setRoleCode(item.getCode());
+        });
+
+        return userDTO;
     }
 
 }
