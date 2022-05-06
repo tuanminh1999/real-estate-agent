@@ -16,7 +16,7 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="#">Trang chủ</a>
+                    <a href="/admin/home">Trang chủ</a>
                 </li>
                 <c:if test="${building.id != null}">
                     <li class="active">Chỉnh sửa toà nhà</li>

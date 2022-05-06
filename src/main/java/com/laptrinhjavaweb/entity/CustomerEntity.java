@@ -23,10 +23,13 @@ public class CustomerEntity extends BaseEntity {
     @Column(name = "note")
     private String note;
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @Column(name = "status")
+    private String status;
+
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<TransactionEntity> transactionEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<AssignmentCustomerEntity> assignmentCustomerEntities = new ArrayList<>();
 
     public String getFullName() {
@@ -67,6 +70,14 @@ public class CustomerEntity extends BaseEntity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<TransactionEntity> getTransactionEntities() {

@@ -14,9 +14,14 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="#">Trang chủ</a>
+                    <a href="/admin/home">Trang chủ</a>
                 </li>
-                <li class="active">Chỉnh sửa người dùng</li>
+                <c:if test="${user.id != null}">
+                    <li class="active">Chỉnh sửa người dùng</li>
+                </c:if>
+                <c:if test="${user.id == null}">
+                    <li class="active">Thêm mới người dùng</li>
+                </c:if>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">

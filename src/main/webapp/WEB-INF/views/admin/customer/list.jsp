@@ -15,19 +15,16 @@
             </script>
 
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Trang Chủ</a>
+                <li><i class="ace-icon fa fa-home home-icon"></i> <a href="/admin/home">Trang Chủ</a>
                 </li>
                 <li class="active">Danh Sách Khách Hàng</li>
             </ul>
             <!-- /.breadcrumb -->
 
-
         </div>
 
         <div class="page-content">
             <div class="ace-settings-container" id="ace-settings-container">
-
-
                 <div class="ace-settings-box clearfix" id="ace-settings-box">
                     <div class="pull-left width-50">
                         <div class="ace-settings-item">
@@ -100,15 +97,6 @@
                 <!-- /.ace-settings-box -->
             </div>
             <!-- /.ace-settings-container -->
-
-            <div class="page-header">
-                <h1>
-                    Danh Sách Tòa Nhà <small> <i
-                        class="ace-icon fa fa-angle-double-right"></i> Danh sách khách hàng
-                </small>
-                </h1>
-            </div>
-            <!-- /.page-header -->
 
             <div class="row">
 
@@ -201,7 +189,7 @@
                     <div class="pull-right">
                         <a title="Thêm tòa nhà" class="btn btn-white btn-info btn-bold"
                            data-toggle="tooltip"
-                           href=""> <i
+                           href="/admin/customer-add"> <i
                                 class="fa fa-plus-circle"></i>
                         </a>
                         <button class="btn btn-white btn-info btn-bold"
@@ -219,7 +207,7 @@
                                class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th></th>
+                                <th><input type='checkbox' id='checkAll' class='check-box-element'></th>
                                 <th>Tên khách hàng</th>
                                 <th>Di Động</th>
                                 <th>Email</th>
@@ -228,9 +216,31 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            <c:forEach items="${customers}" var="item">
+                                <td><input type="checkbox" id="checkbox_${item.id}"
+                                           value="${item.id}"></td>
+                                <td>${item.fullName}</td>
+                                <td>${item.phone}</td>
+                                <td>${item.email}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button class="btn btn-xs btn-info" data-toggle="tooltip"
+                                            title="Giao khách hàng"
+                                            onclick="assignmentCustomer(${item.id})">
+                                        <i class="fa fa-eye" aria-hidden="true" id="button"></i>
+                                    </button>
+                                    <a  href="<c:url value="/admin/customer-edit-${item.id}"/>" class="btn btn-xs btn-info"
+                                        data-toggle="tooltip" title="Giao dịch và cập nhật"> <i
+                                            class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <button class="btn btn-xs btn-info" data-toggle="tooltip"
+                                            title="Trạng Thái"
+                                            onclick="statusCustomer(${item.id})">
+                                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </c:forEach>
                             </tbody>
-
                         </table>
                         <nav aria-label="Page navigation" style="margin-left: 340px;">
                             <ul class="pagination" id="pagination"></ul>

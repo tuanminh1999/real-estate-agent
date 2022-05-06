@@ -14,7 +14,6 @@ public class UserDTO extends AbstractDTO{
     private String roleName;
     private String roleCode;
     private Map<String, String> roleDTOs = new HashMap<>();
-    private String checked;
 
     public String getUserName() {
         return userName;
@@ -80,11 +79,4 @@ public class UserDTO extends AbstractDTO{
         this.roleDTOs = roleDTOs;
     }
 
-    public String getChecked() {
-        return checked;
-    }
-
-    public void setChecked(String checked) {
-        this.checked = checked;
-    }
 }

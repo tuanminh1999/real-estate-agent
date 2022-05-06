@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="customerApiUrl" value=""/>
+<c:url var="customerApiUrl" value="/api/customers"/>
 <c:url var="transactionApiUrl" value=""/>
 <div class="main-content">
     <div class="main-content-inner">
@@ -14,19 +14,20 @@
             </script>
 
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Trang Chủ</a>
+                <li><i class="ace-icon fa fa-home home-icon"></i> <a href="/admin/home">Trang Chủ</a>
                 </li>
-                <li class="active">Quản lý khách hàng</li>
+                <c:if test="${customer.id != null}">
+                    <li class="active">Chỉnh sửa khách hàng</li>
+                </c:if>
+                <c:if test="${customer.id == null}">
+                    <li class="active">Thêm mới khách hàng</li>
+                </c:if>
             </ul>
             <!-- /.breadcrumb -->
-
-
         </div>
 
         <div class="page-content">
             <div class="ace-settings-container" id="ace-settings-container">
-
-
                 <div class="ace-settings-box clearfix" id="ace-settings-box">
                     <div class="pull-left width-50">
                         <div class="ace-settings-item">
@@ -101,15 +102,6 @@
                 <!-- /.ace-settings-box -->
             </div>
             <!-- /.ace-settings-container -->
-
-            <div class="page-header">
-                <h1>
-                    Quản lý Khách Hàng <small> <i
-                        class="ace-icon fa fa-angle-double-right"></i> Lưu Khách Hàng
-                </small>
-                </h1>
-            </div>
-            <!-- /.page-header -->
 
             <div class="row">
                 <form class="form-horizontal" role="form" id="formEdit">
@@ -290,25 +282,6 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="footer-inner">
-        <div class="footer-content">
-            <span class="action-buttons">
-							<a href="#">
-								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-							</a>
-
-							<a href="#">
-								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-							</a>
-
-							<a href="#">
-								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-							</a>
-						</span>
-        </div>
-    </div>
-</div>
 <!-- START modal giao toa nha cho nhan vien quan ly -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -337,3 +310,53 @@
 
     </div>
 </div>
+<script>
+    var data = {};
+
+    $("#btnAddCustomer").click(function (event) {
+        event.preventDefault();
+        var formData = $("#formEdit").serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        if (data['id'] != '' || data['id'] > 0) {
+            editBuilding(data);
+        } else {
+            addBuilding(data);
+        }
+
+
+    });
+
+    function addBuilding(data) {
+        $.ajax({
+            url: '${customerApiUrl}',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                swal("Thành công", "Sản phẩm đã được lưa", "success");
+            },
+            error: function (res) {
+                swal("Chưa Thực Hiện Xóa", "Dữ liệu chưa được lưu", "error");
+            }
+        });
+    }
+
+    function editBuilding(data) {
+        $.ajax({
+            url: '${customerApiUrl}',
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                swal("Thành công", "Sản phẩm đã được cập nhật", "success");
+            },
+            error: function (res) {
+                swal("Chưa Thực Hiện Xóa", "Dữ liệu chưa được cập nhật", "error");
+            }
+        });
+    }
+</script>
