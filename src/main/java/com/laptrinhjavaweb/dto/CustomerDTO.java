@@ -8,6 +8,7 @@ public class CustomerDTO extends AbstractDTO {
     private String status;
     private String demand;
     private String note;
+    private String selected;
 
     public String getNote() {
         return note;
@@ -63,5 +64,13 @@ public class CustomerDTO extends AbstractDTO {
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }

@@ -157,7 +157,7 @@
                                     <i class="ace-icon fa fa-check bigger-110"></i> Cập Nhật
                                 </button>
                                 <button class="btn" type="reset">
-                                    <a href="">
+                                    <a href="/admin/customer-list">
                                         <i class="ace-icon fa fa-undo bigger-110"></i> Thoát
                                     </a>
                                 </button>

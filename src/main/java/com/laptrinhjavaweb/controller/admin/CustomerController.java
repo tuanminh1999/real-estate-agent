@@ -17,6 +17,7 @@ public class CustomerController {
     public ModelAndView showCustomerList(){
         ModelAndView modelAndView = new ModelAndView("admin/customer/list");
         modelAndView.addObject("customers", customerService.findAll());
+        modelAndView.addObject("status", customerService.getStatusCustomer());
         return modelAndView;
     }
 
@@ -29,7 +30,7 @@ public class CustomerController {
     @RequestMapping(value="/admin/customer-edit-{id}")
     public ModelAndView editCustomer(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("admin/customer/edit");
-
+        modelAndView.addObject("customer", customerService.findById(id));
         return modelAndView;
     }
 }

@@ -2,9 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.converter.UserConverter;
-import com.laptrinhjavaweb.dto.BuildingDTO;
 import com.laptrinhjavaweb.dto.UserDTO;
-import com.laptrinhjavaweb.entity.RentAreaEntity;
 import com.laptrinhjavaweb.entity.RoleEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.exception.MyNullPointerException;
@@ -12,7 +10,6 @@ import com.laptrinhjavaweb.repository.RoleRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +29,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserConverter userConverter;
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserDTO> findAll() {
         List<UserEntity> userEntities = userRepository.findAll();
@@ -63,6 +61,7 @@ public class UserServiceImpl implements IUserService {
         return userConverter.convertToDTO(userRepository.save(userEntity));
     }
 
+    @Transactional
     @Override
     public void deleteUsers(Long[] idList) {
         for (Long id : idList) {
@@ -75,6 +74,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO findById(Long id) {
+        if (id == null) {
+            throw new MyNullPointerException("User id can not be null");
+        }
+
         UserEntity entity = userRepository.findOne(id);
 
         List<RoleEntity> roles = entity.getRoleEntities();

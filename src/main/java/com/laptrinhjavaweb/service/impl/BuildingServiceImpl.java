@@ -61,11 +61,12 @@ public class BuildingServiceImpl implements IBuildingService {
 
     @Override
     public BuildingDTO findById(Long id) {
+        if (id == null) {
+            throw new MyNullPointerException("Building id can not be null");
+        }
+
         BuildingDTO buildingDTO = buildingConverter.convertToDTO(buildingRepository.findOne(id));
 
-        if (buildingDTO == null) {
-            throw new MyNullPointerException("NullPointerException about BuildingDTO");
-        }
             List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findByBuildingId(id);
             String rentAreaSt = "";
             for (RentAreaEntity item: rentAreaEntities) {
