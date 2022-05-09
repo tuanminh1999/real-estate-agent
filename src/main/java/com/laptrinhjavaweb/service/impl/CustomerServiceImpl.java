@@ -44,8 +44,13 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Transactional
     @Override
-    public void deleteCustomers(Long[] ids) {
-
+    public void deleteCustomers(Long[] idList) {
+        for (Long id : idList) {
+            if (id == null) {
+                throw new MyNullPointerException("Id is null:" + id);
+            }
+            customerRepository.delete(id);
+        }
     }
 
     @Override

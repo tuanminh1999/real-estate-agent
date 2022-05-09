@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp"%>
+<c:url var="buildingsUrl" value="/admin/building-list" />
 <c:url var="buildingApiUrl" value="/api/buildings"/>
 <div class="main-content">
     <div class="main-content-inner">
@@ -279,13 +280,13 @@
                             <div class="col-sm-9">
                                 <c:if test="${building.id != null}">
                                     <button type="button" class="btn btn-primary" id="btnAddBuilding">Cập Nhật</button>
-                                    <a href="<c:url value="/admin/building-list" />">
+                                    <a href="<c:url value="${buildingsUrl}" />">
                                         <button type="button" class="btn btn-warning">Thoát</button>
                                     </a>
                                 </c:if>
                                 <c:if test="${building.id == null}">
                                     <button type="button" class="btn btn-primary" id="btnAddBuilding">Thêm</button>
-                                    <a href="<c:url value="/admin/building-list" />">
+                                    <a href="<c:url value="${buildingsUrl}" />">
                                         <button type="button" class="btn btn-warning">Thoát</button>
                                     </a>
                                 </c:if>

@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="userApiUrl" value="/api/users"/>
+<c:url var="usersUrl" value="/admin/user-list"/>
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -70,10 +71,18 @@
                             <c:if test="${not empty user.id}">
                                 <input type="button" class="btn btn-white btn-warning btn-bold"
                                        value="Cập nhật người dùng" id="btnAddOrUpdateUsers"/>
+                                <a href="${usersUrl}">
+                                    <input type="button" class="btn btn-white btn-danger btn-bold"
+                                           value="Thoát"/>
+                                </a>
                             </c:if>
                             <c:if test="${empty user.id}">
                                 <input type="button" class="btn btn-white btn-warning btn-bold"
                                        value="Thêm mới người dùng" id="btnAddOrUpdateUsers"/>
+                                <a href="${usersUrl}">
+                                    <input type="button" class="btn btn-white btn-danger btn-bold"
+                                           value="Thoát"/>
+                                </a>
                             </c:if>
                         </div>
                         <!--Btn-->

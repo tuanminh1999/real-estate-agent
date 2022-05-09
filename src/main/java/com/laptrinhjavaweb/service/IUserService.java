@@ -15,4 +15,6 @@ public interface IUserService {
     void deleteUsers(Long[] idList);
 
     UserDTO findById(Long id);
+
+    List<UserDTO> findByRoleCustomers(Long roleId, Long customerId);
 }

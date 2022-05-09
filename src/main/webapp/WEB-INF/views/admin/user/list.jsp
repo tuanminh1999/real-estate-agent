@@ -93,7 +93,7 @@
                                             </a>
                                             <button id="btnDeleteUser" type="button"
                                                     class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
-                                                    data-toggle="tooltip" title="Xóa bài viết" onclick="">
+                                                    data-toggle="tooltip" title="Xóa xoá người dùng">
                                                         <span>
                                                             <i class="fa fa-trash-o bigger-110 pink"></i>
                                                         </span>
@@ -148,7 +148,7 @@
     </form>
 </div>
 <script>
-    //delete building
+    //delete user
     document.getElementById('btnDeleteUser').onclick = function() {
         swal({
             title : "Bạn có chắc chắn?",
@@ -168,14 +168,14 @@
                     return $(this).val();
                 }).get();
                 // data['ids'] = ids;
-                deleteBuildings(ids);
+                deleteUsers(ids);
             } else {
                 swal("Chưa Thực Hiện Xóa", "Dữ liệu vẫn an toàn", "error");
             }
         });
     };
 
-    function deleteBuildings(data) {
+    function deleteUsers(data) {
         $.ajax({
             type: "DELETE",
             url: "${userApiUrl}",
@@ -186,7 +186,6 @@
             },
             error: function (response) {
                 window.location.href = "${usersUrl}";
-
             }
         });
     }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="customerURL" value="/admin/customers" />
+<c:url var="customersURL" value="/admin/customer-list" />
 <c:url var="customerApiURL" value="/api/customers" />
 <div class="main-content">
     <div class="main-content-inner">
@@ -99,10 +99,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="pull-right">
-                        <a title="Thêm tòa nhà" class="btn btn-white btn-info btn-bold" data-toggle="tooltip"
+                        <a title="Thêm khách hàng" class="btn btn-white btn-info btn-bold" data-toggle="tooltip"
                             href="/admin/customer-add"> <i class="fa fa-plus-circle"></i>
                         </a>
-                        <button class="btn btn-white btn-info btn-bold" data-toggle="tooltip" title="Xóa tòa nhà"
+                        <button class="btn btn-white btn-info btn-bold" data-toggle="tooltip" title="Xóa khách hàng"
                             id="btnDeleteCustomer">
                             <i class=" fa fa-trash"></i>
                         </button>
@@ -209,12 +209,22 @@
 </div>
 
 <script>
+    function assignmentCustomer(customerId) {
+        openModalAsssignmentCustomer();
+        $('#customerId').val(customerId); // truyen id vao #customerId
+        showStaffAssignment(customerId);
+    }
+
     function statusCustomer(customerId) {
         openModalStatus();
         showStatus(customerId);
     }
 
     // show modal
+    function openModalAsssignmentCustomer() {
+        $('#assignmentCustomerModal').modal();
+    }
+
     function openModalStatus() {
         $('#statusCustomer').modal();
     }
@@ -261,7 +271,100 @@
 
             },
             error: function (response) {
-                console.log('failed');
+                console.log(response);
+            }
+        });
+    }
+
+    function showStaffAssignment(id) {
+        $.ajax({
+            type: "GET",
+            url: "${customerApiURL}/" + id + "/staffs",
+            dataType: "json",
+            success: function (response) {
+                var html = '';
+                $.each(response, function (index, staffOutput) {
+                    html += '<tr>';
+                    html += '<td><input type="checkbox" value="' + staffOutput.id + '" id="checkbox_' + staffOutput.userName + '" ' + staffOutput.checked + '></td>';
+                    html += '<td>' + staffOutput.userName + '</td>';
+                    html += '</tr>';
+                });
+                $('#staffList tbody').html(html);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    //delete customer
+    document.getElementById('btnDeleteCustomer').onclick = function() {
+        swal({
+            title : "Bạn có chắc chắn?",
+            text : "Bạn sẽ xóa sản phẩm này khỏi dữ liệu!",
+            type : "warning",
+            showCancelButton : true,
+            confirmButtonColor : '#DD6B55',
+            confirmButtonText : 'Vâng, Hãy Xóa!',
+            cancelButtonText : "Không, Đừng Xóa!",
+            closeOnConfirm : false,
+            closeOnCancel : false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                // var data = {};
+                var ids = $('#customerList').find(
+                    'tbody input[type=checkbox]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                // data['ids'] = ids;
+                deleteCustomers(ids);
+            } else {
+                swal("Chưa Thực Hiện Xóa", "Dữ liệu vẫn an toàn", "error");
+            }
+        });
+    };
+
+    function deleteCustomers(data) {
+        $.ajax({
+            type: "DELETE",
+            url: "${customerApiURL}",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (response) {
+                window.location.href = "${customersURL}";
+            },
+            error: function (response) {
+                window.location.href = "${customersURL}";
+
+            }
+        });
+    }
+
+    $('#btnAssignCustomer').click(function () {
+        var data = {};
+        var staffs = $('#staffList').find('tbody input[type=checkbox]:checked').map(function () {
+            return $(this).val();
+        }).get();
+        var customerId = $('#customerId').val();
+        data['staffs'] = staffs;
+        data['customerId'] = customerId;
+        assignStaff(data);
+
+    });
+
+    function assignStaff(data) {
+        $.ajax({
+            type: "POST",
+            url: "${customerApiURL}/assignCustomer",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            traditional: true,
+            success: function (response) {
+                if (response == "success") {
+                    swal("Thành công", "Sản phẩm đã được lưa", "success");
+                }
+            },
+            error: function (response) {
                 console.log(response);
             }
         });

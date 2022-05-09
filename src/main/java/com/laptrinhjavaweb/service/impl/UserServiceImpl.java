@@ -89,4 +89,25 @@ public class UserServiceImpl implements IUserService {
         return userDTO;
     }
 
+    public List<UserDTO> findByRoleCustomers(Long roleId, Long customerId) {
+        List<UserEntity> entityList = userRepository.findByRoles(roleId);
+
+        List<UserEntity> usersByCustomer = null;
+        if (customerId > 0 && customerId != null) {
+            usersByCustomer = userRepository.findByCustomer(customerId);
+        }
+        List<UserDTO> dtoList = entityList.stream()
+                .map(item -> userConverter.convertToDTO(item)).collect(Collectors.toList());
+        for (UserDTO dto : dtoList) {
+            if (usersByCustomer != null) {
+                for (UserEntity item : usersByCustomer) {
+                    if (dto.getId() == item.getId()) {
+                        dto.setChecked("checked");
+                    }
+                }
+            }
+        }
+        return dtoList;
+    }
+
 }

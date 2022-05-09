@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="customersUrl" value="/admin/customer-list"/>
 <c:url var="customerApiUrl" value="/api/customers"/>
 <c:url var="transactionApiUrl" value=""/>
 <div class="main-content">
@@ -27,83 +28,8 @@
         </div>
 
         <div class="page-content">
-            <div class="ace-settings-container" id="ace-settings-container">
-                <div class="ace-settings-box clearfix" id="ace-settings-box">
-                    <div class="pull-left width-50">
-                        <div class="ace-settings-item">
-                            <div class="pull-left">
-                                <select id="skin-colorpicker" class="hide">
-                                    <option data-skin="no-skin" value="#438EB9">#438EB9</option>
-                                    <option data-skin="skin-1" value="#222A2D">#222A2D</option>
-                                    <option data-skin="skin-2" value="#C6487E">#C6487E</option>
-                                    <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
-                                </select>
-                            </div>
-                            <span>&nbsp; Choose Skin</span>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-navbar"/> <label class="lbl"
-                                                                     for="ace-settings-navbar"> Fixed Navbar</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-sidebar"/> <label class="lbl"
-                                                                      for="ace-settings-sidebar"> Fixed Sidebar</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-breadcrumbs"/> <label class="lbl"
-                                                                          for="ace-settings-breadcrumbs"> Fixed
-                            Breadcrumbs</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-rtl"/> <label class="lbl"
-                                                                  for="ace-settings-rtl"> Right To Left (rtl)</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-add-container"/> <label class="lbl"
-                                                                            for="ace-settings-add-container"> Inside <b>.container</b>
-                        </label>
-                        </div>
-                    </div>
-                    <!-- /.pull-left -->
-
-                    <div class="pull-left width-50">
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-hover"/> <label class="lbl"
-                                                                    for="ace-settings-hover"> Submenu on Hover</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-compact"/> <label class="lbl"
-                                                                      for="ace-settings-compact"> Compact
-                            Sidebar</label>
-                        </div>
-
-                        <div class="ace-settings-item">
-                            <input type="checkbox" class="ace ace-checkbox-2"
-                                   id="ace-settings-highlight"/> <label class="lbl"
-                                                                        for="ace-settings-highlight"> Alt. Active
-                            Item</label>
-                        </div>
-                    </div>
-                    <!-- /.pull-left -->
-                </div>
-                <!-- /.ace-settings-box -->
-            </div>
-            <!-- /.ace-settings-container -->
-
             <div class="row">
+                <div class="col-xs-12">
                 <form class="form-horizontal" role="form" id="formEdit">
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="fullName">Tên
@@ -156,23 +82,22 @@
                                 <button class="btn btn-info" type="submit" id="btnAddCustomer">
                                     <i class="ace-icon fa fa-check bigger-110"></i> Cập Nhật
                                 </button>
-                                <button class="btn" type="reset">
-                                    <a href="/admin/customer-list">
-                                        <i class="ace-icon fa fa-undo bigger-110"></i> Thoát
-                                    </a>
-                                </button>
+                                <a href="${customersUrl}" class="btn" type="reset">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i> Thoát
+                                </a>
                             </c:if>
                             <c:if test="${customer.id == null}">
                                 <button class="btn btn-info" type="submit" id="btnAddCustomer">
                                     <i class="ace-icon fa fa-check bigger-110"></i> Thêm
                                 </button>
-                                <button class="btn" type="reset">
-                                    <i class="ace-icon fa fa-undo bigger-110"></i> Reset
-                                </button>
+                                    <a href="${customersUrl}" class="btn" type="reset">
+                                        <i class="ace-icon fa fa-undo bigger-110"></i> Thoát
+                                    </a>
                             </c:if>
                         </div>
                     </div>
                 </form>
+                </div>
             </div>
             <c:if test="${customer.id != null}">
                 <div class="row">
@@ -320,15 +245,14 @@
             data["" + v.name + ""] = v.value;
         });
         if (data['id'] != '' || data['id'] > 0) {
-            editBuilding(data);
+            editCustomer(data);
         } else {
-            addBuilding(data);
+            addCustomer(data);
         }
-
 
     });
 
-    function addBuilding(data) {
+    function addCustomer(data) {
         $.ajax({
             url: '${customerApiUrl}',
             type: 'POST',
@@ -344,7 +268,7 @@
         });
     }
 
-    function editBuilding(data) {
+    function editCustomer(data) {
         $.ajax({
             url: '${customerApiUrl}',
             type: 'PUT',
