@@ -41,8 +41,7 @@ public class AssignmentCustomerServiceImpl implements IAssignmentCustomerService
         CustomerEntity customerEntity = customerRepository.findOne(assignmentCustomer.getCustomerId());
         List<AssignmentCustomerDTO> list = new ArrayList<>();
         for (Long item: listStaffsId) {
-            if (!assignmentCustomerEntities.contains(item)){
-                UserEntity userEntity = userRepository.findOne(item); //1 -> User_1
+                UserEntity userEntity = userRepository.findOne(item);
                 AssignmentCustomerEntity assignmentCustomerEntity = new AssignmentCustomerEntity();
                 assignmentCustomerEntity.setCustomerEntity(customerEntity);
                 assignmentCustomerEntity.setUserEntity(userEntity);
@@ -51,14 +50,9 @@ public class AssignmentCustomerServiceImpl implements IAssignmentCustomerService
                 if (assignmentCustomerEntity != null) {
                     list.add(assignmentCustomerConverter.convertToDTO(assignmentCustomerEntity));
                 }
-            }else{
-                list.add(assignmentCustomerConverter.convertToDTO(assignmentCustomerRepository.findOne(item)));
-            }
         }
         for (AssignmentCustomerEntity assignmentCustomerEntity: assignmentCustomerEntities) {
-            if (!listStaffsId.contains(assignmentCustomerEntity.getId())){
-                assignmentCustomerRepository.delete(assignmentCustomerEntity.getId());
-            }
+            assignmentCustomerRepository.delete(assignmentCustomerEntity.getId());
         }
         return list;
     }

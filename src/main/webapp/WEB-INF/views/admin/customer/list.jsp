@@ -285,7 +285,7 @@
                 var html = '';
                 $.each(response, function (index, staffOutput) {
                     html += '<tr>';
-                    html += '<td><input type="checkbox" value="' + staffOutput.id + '" id="checkbox_' + staffOutput.userName + '" ' + staffOutput.checked + '></td>';
+                    html += '<td><input type="checkbox" value="' + staffOutput.id + '" ' + staffOutput.checked + '></td>';
                     html += '<td>' + staffOutput.userName + '</td>';
                     html += '</tr>';
                 });

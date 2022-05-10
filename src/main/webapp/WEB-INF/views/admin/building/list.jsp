@@ -245,7 +245,7 @@
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <button class="btn btn-xs btn-warning" data-toggle="tooltip"
-                                            title="Giao tòa nhà">
+                                            title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -258,6 +258,39 @@
         </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
+
+<!-- START modal giao toa nha cho nhan vien quan ly -->
+<div class="modal fade" id="assignmentBuildingModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Danh Sách Nhân Viên</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered" id="staffList">
+                    <thead>
+                    <tr>
+                        <th>Chọn nhân viên</th>
+                        <th>Tên nhân viên</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <input type="hidden" id="buildingId" name="buildingId" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnAssignBuilding">Giao
+                    tòa nhà
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     //delete building
     document.getElementById('btnDeleteBuilding').onclick = function () {
@@ -298,6 +331,72 @@
             error: function (response) {
                 window.location.href = "${buildingsUrl}";
 
+            }
+        });
+    }
+
+    function assignmentBuilding(buildingId) {
+        openModalAsssignmentBuilding();
+        $('#buildingId').val(buildingId); // truyen id vao #buildingId
+        showStaffAssignment(buildingId);
+    }
+
+    // show modal
+    function openModalAsssignmentBuilding() {
+        $('#assignmentBuildingModal').modal();
+    }
+
+    function showStaffAssignment(id) {
+        $.ajax({
+            type: "GET",
+            url: "${buildingApiUrl}/" + id + "/staffs",
+            dataType: "json",
+            success: function (response) {
+                var html = '';
+                $.each(response, function (index, staffOutput) {
+                    html += '<tr>';
+                    html += '<td><input type="checkbox" value="' + staffOutput.id + '" ' + staffOutput.checked + '></td>';
+                    html += '<td>' + staffOutput.userName + '</td>';
+                    html += '</tr>';
+                });
+                $('#staffList tbody').html(html);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    $('#btnAssignBuilding').click(function () {
+        var data = {};
+        var staffs = $('#staffList').find('tbody input[type=checkbox]:checked').map(function () {
+            return $(this).val();
+        }).get();
+        var buildingId = $('#buildingId').val();
+        data['staffs'] = staffs;
+        data['buildingId'] = buildingId;
+        assignStaff(data);
+
+    });
+
+    $('#reset').click(function () {
+        window.location.href="${buildingsUrl}";
+    });
+
+    function assignStaff(data) {
+        $.ajax({
+            type: "POST",
+            url: "${buildingApiUrl}/assignBuilding",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            traditional: true,
+            success: function (response) {
+                if (response == "success") {
+                    swal("Thành công", "Sản phẩm đã được lưa", "success");
+                }
+            },
+            error: function (response) {
+                console.log(response);
             }
         });
     }

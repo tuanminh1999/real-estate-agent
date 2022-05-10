@@ -17,4 +17,6 @@ public interface IUserService {
     UserDTO findById(Long id);
 
     List<UserDTO> findByRoleCustomers(Long roleId, Long customerId);
+
+    List<UserDTO> findByRoleBuidlings(Long roleId,Long buildingId);
 }

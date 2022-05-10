@@ -1,8 +1,8 @@
 package com.laptrinhjavaweb.dto;
 
 public class AssignmentCustomerDTO extends AbstractDTO {
+
     private Long[] staffs;
-    private Long staffId;
     private Long customerId;
 
     public Long[] getStaffs() {
@@ -11,14 +11,6 @@ public class AssignmentCustomerDTO extends AbstractDTO {
 
     public void setStaffs(Long[] staffs) {
         this.staffs = staffs;
-    }
-
-    public Long getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(Long staffId) {
-        this.staffId = staffId;
     }
 
     public Long getCustomerId() {

@@ -5,21 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AbstractDTO<T> implements Serializable {
+public class AbstractDTO implements Serializable {
     private Long id;
     private Date createdDate;
     private String createdBy;
     private Date modifiedDate;
     private String modifiedBy;
-    private int maxPageItems = 10;
-    private Integer page;
-    private List<T> listResult = new ArrayList<>();
-    private int totalItems ;
-    private String tableId = "tableList";
-    private Integer limit;
-    private Integer totalPage;
-    private Integer totalItem;
-    private String searchValue;
 
     public Long getId() {
         return id;
@@ -59,81 +50,5 @@ public class AbstractDTO<T> implements Serializable {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
-    }
-
-    public int getTotalPages() {
-        return (int) Math.ceil((double) this.getTotalItems() / this.getMaxPageItems());
-    }
-
-    public int getMaxPageItems() {
-        return maxPageItems;
-    }
-
-    public void setMaxPageItems(int maxPageItems) {
-        this.maxPageItems = maxPageItems;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public List<T> getListResult() {
-        return listResult;
-    }
-
-    public void setListResult(List<T> listResult) {
-        this.listResult = listResult;
-    }
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-    }
-
-    public String getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(String tableId) {
-        this.tableId = tableId;
-    }
-
-    public Integer getLimit() {
-        return limit;
-    }
-
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
-
-    public Integer getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
-    }
-
-    public Integer getTotalItem() {
-        return totalItem;
-    }
-
-    public void setTotalItem(Integer totalItem) {
-        this.totalItem = totalItem;
-    }
-
-    public String getSearchValue() {
-        return searchValue;
-    }
-
-    public void setSearchValue(String searchValue) {
-        this.searchValue = searchValue;
     }
 }
