@@ -29,7 +29,7 @@ public class CustomerEntity extends BaseEntity {
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<TransactionEntity> transactionEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AssignmentCustomerEntity> assignmentCustomerEntities = new ArrayList<>();
 
     public String getFullName() {

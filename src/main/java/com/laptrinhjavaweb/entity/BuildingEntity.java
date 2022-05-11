@@ -104,7 +104,7 @@ public class BuildingEntity extends BaseEntity {
     @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RentAreaEntity> areaEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "buildingEntity",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
 
     public String getAvatar() {
