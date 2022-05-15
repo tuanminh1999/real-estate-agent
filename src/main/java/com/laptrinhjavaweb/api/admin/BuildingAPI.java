@@ -46,7 +46,6 @@ public class BuildingAPI {
         return userService.findByRoleBuidlings((long) 2,id);
     }
 
-
     @PostMapping("/assignBuilding")
     public String assignBuilding(@RequestBody AssignmentBuildingDTO responseDTO){
         List<AssignmentBuildingDTO> list= assignmentBuilding.save(responseDTO);

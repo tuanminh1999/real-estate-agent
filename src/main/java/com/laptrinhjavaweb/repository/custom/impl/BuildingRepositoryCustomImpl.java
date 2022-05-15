@@ -45,7 +45,7 @@ public class BuildingRepositoryCustomImpl implements IBuildingRepositoryCustom {
         if(model.getName() != null && !model.getName().isEmpty()){
             sqlName.append(" and b.name like '%" + model.getName() + "%' ");
         }
-        if (model.getStaffId() != null) {
+        if (model.getStaffId() != null && !model.getStaffId().isEmpty()) {
             sqlStaff.append("left join assignment_building ab on ab.building_id = b.id");
             sqlStaffId.append(" and ab.staff_id =" + model.getStaffId());
         }
@@ -82,9 +82,9 @@ public class BuildingRepositoryCustomImpl implements IBuildingRepositoryCustom {
         if (model.getLevel() != null && !model.getLevel().isEmpty()) {
             sqlLevel.append(" and b.level like '%" + model.getLevel() + "%'");
         }
-//        if (model.getRentTypes().length > 0) {
-//            sqlTyle.append(checkType(model));
-//        }
+        if (model.getRentTypes().length > 0) {
+            sqlTyle.append(checkType(model));
+        }
 
         sql.append(sqlStaff + " where 1 = 1 " + sqlName + " " + sqlStaffId + " " + sqlFloorArea + " "
                 + sqlDistrict + " " + sqlWard + " " + sqlStreet + " " + sqlNumberOfBasement + " "

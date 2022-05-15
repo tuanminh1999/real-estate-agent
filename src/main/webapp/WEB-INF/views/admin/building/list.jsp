@@ -63,7 +63,7 @@
                                                 <div>
                                                     <label for="district"><b>Quận hiện có</b></label>
                                                     </br>
-                                                    <select class="col-sm-6" id="district">
+                                                    <select class="col-sm-6" id="district" name="district">
                                                         <option value="">-- Chọn quận hiện có --</option>
                                                         <c:forEach items="${districtsEnums}" var="item">
                                                             <option value="${item.key}">
