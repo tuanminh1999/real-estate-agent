@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,8 +33,14 @@ public class UserServiceImpl implements IUserService {
     @Transactional(readOnly = true)
     @Override
     public List<UserDTO> findAll() {
+        List<UserDTO> result = new LinkedList<>();
         List<UserEntity> userEntities = userRepository.findAll();
-        return userEntities.stream().map(item -> userConverter.convertToDTO(item)).collect(Collectors.toList());
+        for (UserEntity userEntity : userEntities) {
+            UserDTO userDTO = userConverter.convertToDTO(userEntity);
+            userDTO.setRoleCode(userEntity.getRoleEntities().get(0).getCode());
+            result.add(userDTO);
+        }
+        return result;
     }
 
     @Transactional

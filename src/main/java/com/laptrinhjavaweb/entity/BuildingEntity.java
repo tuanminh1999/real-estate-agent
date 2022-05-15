@@ -23,7 +23,7 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "deposit")
     private String deposit;
 
-    @Column(name = "direcion")
+    @Column(name = "direction")
     private String direction;
 
     @Column(name = "district")

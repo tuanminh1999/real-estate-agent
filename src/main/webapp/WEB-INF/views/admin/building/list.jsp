@@ -24,173 +24,185 @@
         </div>
 
         <div class="page-content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="widget-box">
-                        <div class="widget-header">
-                            <h4 class="widget-title">Tìm kiếm</h4>
+            <form id="listForm" method="POST" action="${buildingsUrl}">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Tìm kiếm</h4>
 
-                            <div class="widget-toolbar">
-                                <a href="#" data-action="collapse">
-                                    <i class="ace-icon fa fa-chevron-up"></i>
-                                </a>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="widget-body">
-                            <div class="widget-main">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        <!-- PAGE CONTENT BEGINS -->
-                                        <div class="col-sm-6">
-                                            <div>
-                                                <label for="name"><b>Tên tòa nhà</b></label>
-                                                <input type="text" id="name" class="form-control" />
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <!-- PAGE CONTENT BEGINS -->
+                                            <div class="col-sm-6">
+                                                <div>
+                                                    <label for="name"><b>Tên tòa nhà</b></label>
+                                                    <input type="text" id="name" class="form-control" name="name"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div>
+                                                    <label for="floorArea"><b>Diện tích sàn</b></label>
+                                                    <input type="number" id="floorArea" class="form-control"
+                                                                            name="floorArea"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="district"><b>Quận hiện có</b></label>
+                                                    </br>
+                                                    <select class="col-sm-6" id="district">
+                                                        <option value="">-- Chọn quận hiện có --</option>
+                                                        <c:forEach items="${districtsEnums}" var="item">
+                                                            <option value="${item.key}">
+                                                                ${item.value}
+                                                            </option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="ward"><b>Phường</b></label>
+                                                    <input type="text" id="ward" class="form-control"
+                                                                            name="ward"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="street"><b>Đường</b></label>
+                                                    <input type="text" id="street" class="form-control"
+                                                                        name="street"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="numberOfBasement"><b>Số tầng hầm</b></label>
+                                                    <input type="number" id="numberOfBasement" class="form-control"
+                                                                            name="numberOfBasement"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="direction"><b>Hướng</b></label>
+                                                    <input type="text" id="direction" class="form-control"
+                                                                            name="direction"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="level"><b>Hạng</b></label>
+                                                    <input type="text" id="level" class="form-control"
+                                                                        name="level"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <label for="rentAreaFrom"><b>Diện tích từ</b></label>
+                                                    <input type="number" id="rentAreaFrom" class="form-control"
+                                                        name="rentAreaFrom" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <label for="rentAreaTo"><b>Diện tích đến</b></label>
+                                                    <input type="number" id="rentAreaTo" class="form-control"
+                                                        name="rentAreaTo" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <label for="rentPriceFrom"><b>Giá thuê từ</b></label>
+                                                    <input type="number" id="rentPriceFrom" class="form-control"
+                                                        name="rentPriceFrom" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <label for="rentPriceTo"><b>Giá thuê đến</b></label>
+                                                    <input type="number" id="rentPriceTo" class="form-control"
+                                                        name="rentPriceTo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="managerName"><b>Tên quản lý</b></label>
+                                                    <input type="text" id="managerName" class="form-control"
+                                                                        name="managerName"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="managerPhone"><b>Điện thoại quản lý</b></label>
+                                                    <input type="number" id="managerPhone" class="form-control"
+                                                                            name="managerPhone"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label for="staffId"><b>Chọn nhân viên phụ trách</b></label>
+                                                    </br>
+                                                    <select class="col-sm-8" id="staffId" name="staffId">
+                                                        <option value="">-- Chọn nhân viên phụ trách --</option>
+                                                        <c:forEach items="${staffs}" var="item">
+                                                            <option value="${item.id}">
+                                                                    ${item.userName}
+                                                            </option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6">
-                                            <div>
-                                                <label for="buildingArea"><b>Diện tích sàn</b></label>
-                                                <input type="number" id="buildingArea" class="form-control" />
-                                            </div>
+                                        <div class="form-group ">
+                                            <c:forEach var="item" items="${rentTypesEnums}">
+                                                <div class="col-xs-12 col-sm-2">
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" value="${item.key}" id="rentTypes"
+                                                            name="rentTypes"> <b> ${item.value} </b>
+                                                    </label>
+                                                </div>
+                                            </c:forEach>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Quận hiện có</b></label>
-                                                </br>
-                                                <select class="col-sm-6" id="form-field-select-1">
-                                                    <option value="">-- Chọn quận hiện có --</option>
-                                                    <c:forEach items="${districtsEnums}" var="item">
-                                                        <option value="${item.key}">
-                                                            ${item.value}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
+                                        <!-- PAGE CONTENT ENDS -->
+                                        <div class="form-group">
+                                            <div class="col-xs-12 center">
+                                                <button class="btn btn-info btn-white btn-bold" type="submit"
+                                                    id="btnSearchBuilding">
+                                                    <i class="fa fa-search" area-hidden="true"></i>
+                                                    Tìm kiếm
+                                                </button>
+                                                <button class="btn btn-info btn-white btn-bold" type="reset" id="reset">
+                                                    <i class="fa fa-refresh" area-hidden="true"></i>
+                                                    Làm mới
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Phường</b></label>
-                                                <input type="text" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Đường</b></label>
-                                                <input type="text" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Số tầng hầm</b></label>
-                                                <input type="number" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Hướng</b></label>
-                                                <input type="text" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Hạng</b></label>
-                                                <input type="text" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-3">
-                                            <div>
-                                                <label for="areaRentFrom"><b>Diện tích từ</b></label>
-                                                <input type="number" id="areaRentFrom" class="form-control"
-                                                    name="areaRentFrom" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div>
-                                                <label for="areaRentTo"><b>Diện tích đến</b></label>
-                                                <input type="number" id="areaRentTo" class="form-control"
-                                                    name="areaRentTo" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div>
-                                                <label for="costRentFrom"><b>Giá thuê từ</b></label>
-                                                <input type="number" id="costRentFrom" class="form-control"
-                                                    name="costRentFrom" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div>
-                                                <label for="costRentTo"><b>Giá thuê đến</b></label>
-                                                <input type="number" id="costRentTo" class="form-control"
-                                                    name="costRentTo" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Tên quản lý</b></label>
-                                                <input type="text" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Điện thoại quản lý</b></label>
-                                                <input type="number" id="buildingArea" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <label for="buildingArea"><b>Chọn nhân viên phụ trách</b></label>
-                                                </br>
-                                                <select class="col-sm-8" id="form-field-select-1">
-                                                    <option value="">-- Chọn nhân viên phụ trách --</option>
-                                                    <option value="id">nguyen van a</option>
-                                                    <option value="id">nguyen van a</option>
-                                                    <option value="id">nguyen van a</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <c:forEach var="item" items="${rentTypesEnums}">
-                                            <div class="col-xs-12 col-sm-2">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="${item.key}" id="rentTypes"
-                                                        name="rentTypes"> <b> ${item.value} </b>
-                                                </label>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <!-- PAGE CONTENT ENDS -->
-                                    <div class="form-group">
-                                        <div class="col-xs-12 center">
-                                            <button class="btn btn-info btn-white btn-bold" type="submit"
-                                                id="btnSearchBuilding">
-                                                <i class="fa fa-search" area-hidden="true"></i>
-                                                Tìm kiếm
-                                            </button>
-                                            <button class="btn btn-info btn-white btn-bold" type="reset" id="reset">
-                                                <i class="fa fa-refresh" area-hidden="true"></i>
-                                                Làm mới
-                                            </button>
-                                        </div>
-                                    </div><!-- /.col -->
-                                </div><!-- /.row -->
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><!-- /.row -->
+                </div><!-- /.row -->
+            </form>
             <%--            </br>--%>
             <%--            </br>--%>
             <div class="row">
@@ -400,4 +412,9 @@
             }
         });
     }
+
+    $("#btnSearchBuilding").click(function (e) {
+        e.preventDefault();
+        $("#listForm").submit();
+    });
 </script>

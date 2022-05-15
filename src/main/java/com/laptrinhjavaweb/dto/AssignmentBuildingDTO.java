@@ -4,6 +4,7 @@ import com.laptrinhjavaweb.entity.BuildingEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 
 public class AssignmentBuildingDTO extends BuildingDTO {
+
     private Long buildingId; //
     private Long[] staffs;  //
     private Long staffId;

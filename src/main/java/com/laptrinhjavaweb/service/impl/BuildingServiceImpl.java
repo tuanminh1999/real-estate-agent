@@ -2,7 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import com.laptrinhjavaweb.converter.BuildingConverter;
 import com.laptrinhjavaweb.dto.BuildingDTO;
-import com.laptrinhjavaweb.dto.RentAreaDTO;
+import com.laptrinhjavaweb.dto.requestDTO.BuildingRequestDTO;
 import com.laptrinhjavaweb.dto.responseDTO.BuildingResponseDTO;
 import com.laptrinhjavaweb.entity.BuildingEntity;
 import com.laptrinhjavaweb.entity.RentAreaEntity;
@@ -11,6 +11,7 @@ import com.laptrinhjavaweb.enums.RentTypesEnums;
 import com.laptrinhjavaweb.exception.MyNullPointerException;
 import com.laptrinhjavaweb.repository.BuildingRepository;
 import com.laptrinhjavaweb.repository.RentAreaRepository;
+import com.laptrinhjavaweb.repository.custom.IBuildingRepositoryCustom;
 import com.laptrinhjavaweb.service.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class BuildingServiceImpl implements IBuildingService {
 
     @Autowired
     private BuildingConverter buildingConverter;
+
+    @Autowired
+    private IBuildingRepositoryCustom buildingRepositoryCustom;
 
     @Override
     public Map<String, String> getDistricts() {
@@ -120,6 +124,19 @@ public class BuildingServiceImpl implements IBuildingService {
             }
             buildingRepository.delete(id);
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<BuildingResponseDTO> findBuildingsWithJPA(BuildingRequestDTO model) {
+        List<BuildingResponseDTO> results = new ArrayList<>();
+        List<BuildingEntity> entities = buildingRepositoryCustom.findBuildingsWithJPA(model);
+        for(BuildingEntity item: entities){
+            BuildingResponseDTO buildingResponseDTO = buildingConverter.convertToResDTO(item);
+            results.add(buildingResponseDTO);
+        }
+
+        return results;
     }
 
 }

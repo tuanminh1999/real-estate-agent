@@ -1,4 +1,4 @@
 package com.laptrinhjavaweb.repository.custom;
 
-public interface ICustomerCustom {
+public interface ICustomerRepositoryCustom {
 }

@@ -1,6 +1,7 @@
 package com.laptrinhjavaweb.service;
 
 import com.laptrinhjavaweb.dto.BuildingDTO;
+import com.laptrinhjavaweb.dto.requestDTO.BuildingRequestDTO;
 import com.laptrinhjavaweb.dto.responseDTO.BuildingResponseDTO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface IBuildingService {
     BuildingDTO saveBuilding(BuildingDTO buildingDTO);
 
     void deleteBuildings(Long[] idList);
+
+    List<BuildingResponseDTO> findBuildingsWithJPA(BuildingRequestDTO model);
 }
