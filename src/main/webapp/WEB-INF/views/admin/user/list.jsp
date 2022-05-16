@@ -5,7 +5,7 @@
 <c:url var="usersUrl" value="/admin/user-list"/>
 <body>
 <div class="main-content">
-    <form action="${formUrl}" id="listForm" method="GET">
+    <form action="${usersUrl}" id="listForm" method="POST">
         <div class="main-content-inner">
             <div class="breadcrumbs" id="breadcrumbs">
                 <script type="text/javascript">
@@ -54,14 +54,14 @@
                                                     </label>
                                                     <div class="col-sm-8">
                                                         <div class="fg-line">
-                                                            <input class="form-control" value=""/>
+                                                            <input class="form-control" value="" name="userInfo"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"></label>
                                                     <div class="col-sm-8">
-                                                        <button id="btnSearch" type="button"
+                                                        <button id="btnSearchUser" type="button"
                                                                 class="btn btn-sm btn-success">
                                                             Tìm kiếm
                                                             <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
@@ -123,7 +123,7 @@
                                                     </a>
                                                 </c:if>
                                                 <c:if test="${item.roleCode == 'ADMIN'}">
-                                                    <p>Không đươc thao tác</p>
+                                                    <p>Không được thao tác</p>
                                                 </c:if>
                                             </td>
                                         </tr>
@@ -181,4 +181,9 @@
             }
         });
     }
+
+    $("#btnSearchUser").click(function (e) {
+        e.preventDefault();
+        $("#listForm").submit();
+    });
 </script>

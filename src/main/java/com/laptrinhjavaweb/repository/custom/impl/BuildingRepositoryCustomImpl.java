@@ -91,6 +91,10 @@ public class BuildingRepositoryCustomImpl implements IBuildingRepositoryCustom {
                 + sqlRentArea + " " + sqlRentPrice + " " + sqlManagerName + " " + sqlManagerPhone + " "
                 + sqlDirection + " " + sqlLevel + " " + sqlTyle);
 
+        if(sqlStaff == null){
+            sql.append(" group by b.id");
+        }
+
         //Remove multiple spaces to one space in string.
         String sqlTemp = sql.toString();
         sqlTemp = sqlTemp.replaceAll("\\s+", " ");

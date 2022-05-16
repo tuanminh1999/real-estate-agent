@@ -138,4 +138,16 @@ public class UserServiceImpl implements IUserService {
         return dtoList;
     }
 
+    @Override
+    public List<UserDTO> findByUsers(String userInfo) {
+        List<UserDTO> result = new LinkedList<>();
+        List<UserEntity> userEntities = userRepository.findByUsers(userInfo);
+        for (UserEntity userEntity : userEntities) {
+            UserDTO userDTO = userConverter.convertToDTO(userEntity);
+            userDTO.setRoleCode(userEntity.getRoleEntities().get(0).getCode());
+            result.add(userDTO);
+        }
+        return result;
+    }
+
 }

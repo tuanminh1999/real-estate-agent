@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = "select * from users u join assignment_building a on u.id = a.staff_id where a.building_id = ?1",nativeQuery = true)
     List<UserEntity> findByBuilding(Long buildingId);
+
+    @Query(value = "select * from users u where u.username LIKE %?1% OR u.fullname LIKE %?1%",nativeQuery = true)
+    List<UserEntity> findByUsers(String userInfo);
 }

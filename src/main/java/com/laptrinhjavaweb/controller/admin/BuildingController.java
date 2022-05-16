@@ -55,7 +55,6 @@ public class BuildingController {
         modelAndView.addObject("districtsEnums", buildingService.getDistricts());
         modelAndView.addObject("rentTypesEnums", buildingService.getRentTypes());
         modelAndView.addObject("buildings", buildingService.findBuildingsWithJPA(buildingRequestDTO));
-
         return modelAndView;
     }
 
